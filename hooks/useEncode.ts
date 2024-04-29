@@ -52,6 +52,10 @@ export const useEncode = () => {
     await ffmpeg.exec(["-i", "input.webm", output]);
     const data = await ffmpeg.readFile(output);
 
+    if (typeof data === "string") {
+      return;
+    }
+
     return new Blob([data.buffer], { type: "audio/wav" });
   };
 
